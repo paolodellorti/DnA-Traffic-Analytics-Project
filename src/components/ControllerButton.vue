@@ -97,7 +97,7 @@ export default {
   h1, h2 {
     display: inline-block;
   }
-  @media (max-width: 810px) {
+  @media (max-width: 830px) {
     .ControllerButton {
       flex: 0 35%;
     }
