@@ -11,7 +11,7 @@
                         />
     </div>
     <div class="chartContainer">
-      <ChartComponent :chart-data="chartData" :options="chartOptions" id="myChart"/>
+      <ChartComponent :chart-data="chartData" :options="chartOptions" />
     </div>
     <div class="credits">
       <a href="https://www.linkedin.com/in/paolo-dell-orti/" target="_blank">&copy; Paolo Dell'Orti</a> | 
@@ -134,6 +134,7 @@ export default {
     overflow-x: hidden;
     background: #505050;
     color: #fff;
+    position: relative;
   }
   .controllersContainer {
     display: flex;
@@ -164,5 +165,15 @@ export default {
   .credits>a:hover {
     color: #30A3E6;
     transition: all 0.2s;
+  }
+  @media (max-width: 830px) {
+    .ControllerButton {
+      flex: 0 35%;
+      height: 200px;
+    }
+    .credits {
+      position: relative;
+      padding: 15px 0;
+    }
   }
 </style>
