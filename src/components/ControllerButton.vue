@@ -39,7 +39,7 @@ export default {
     showVariation(diff) { //mostro l'incremento del valore per 2.5 sec
       this.liveVariation = diff >= 0 ? "+" + diff : diff
       this.$refs[this.name].style.opacity = 1
-      this.$refs[this.name + "button"].style.color = "#4f0"
+      this.$refs[this.name + "button"].style.color = "#0f0"
       setTimeout(() => {
         this.$refs[this.name].style.opacity = 0
         this.$refs[this.name + "button"].style.color = "#fff"
@@ -83,14 +83,14 @@ export default {
     text-transform: capitalize;
   }
   .selected {
-    background-color: #fe4949;
+    background-color: #30A3E6;
     transition: all 0.2s;
   }
   .selected:hover {
-    background-color: #fe4949;
+    background-color: #30A3E6;
   }
   .variation {
-    color: #4f0;
+    color: #0f0;
     opacity: 0;
     transition: all 0.2s;
   }
@@ -100,6 +100,7 @@ export default {
   @media (max-width: 830px) {
     .ControllerButton {
       flex: 0 35%;
+      height: 200px;
     }
   }
 </style>

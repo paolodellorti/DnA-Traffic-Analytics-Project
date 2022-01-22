@@ -11,7 +11,11 @@
                         />
     </div>
     <div class="chartContainer">
-      <ChartComponent :chart-data="chartData" :options="chartOptions" />
+      <ChartComponent :chart-data="chartData" :options="chartOptions" id="myChart"/>
+    </div>
+    <div class="credits">
+      <a href="https://www.linkedin.com/in/paolo-dell-orti/" target="_blank">&copy; Paolo Dell'Orti</a> | 
+      <a href="https://github.com/paolodellorti/DnA-Traffic-Analytics-Project" target="_blank">GitHub</a>
     </div>
   </div>
 </template>
@@ -65,8 +69,8 @@ export default {
         datasets: [{
           label,
           data: Object.values(this.trafficData[label].history),
-          backgroundColor: "rgba(254, 74, 73, 0.7)",
-          borderColor: "#FE4A49",
+          backgroundColor: "rgba(48, 163, 230, 0.8)",
+          borderColor: "#30A3E6",
           pointBorderWidth: 10,
           pointHoverBorderWidth: 15,
           pointHitRadius: '3'
@@ -112,6 +116,17 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');  
   
+  * {
+      text-shadow:
+        -2px -2px 0 #000,
+        0   -2px 0 #000,
+        2px -2px 0 #000,
+        2px  0   0 #000,
+        2px  2px 0 #000,
+        0    2px 0 #000,
+        -2px  2px 0 #000,
+        -2px  0   0 #000;
+  }
   body {
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
@@ -131,5 +146,23 @@ export default {
   .chartContainer {
     width: 80%;
     margin: 0 auto;
+  }
+  .credits {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+    text-shadow: none;
+  }
+  .credits>a:link,
+  .credits>a:visited {
+    text-decoration: none;
+    text-shadow: none;
+    color: #fff;
+    transition: all 0.2s;
+  }
+  .credits>a:hover {
+    color: #30A3E6;
+    transition: all 0.2s;
   }
 </style>
