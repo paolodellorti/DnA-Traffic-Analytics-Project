@@ -36,9 +36,7 @@ export default {
       chartData: null,
       chartOptions: {
         legend: {
-          labels: {
-            fontColor: "#fff"
-          }
+          display: false
         },
         borderWidth: 5,
         responsive: true,
@@ -47,8 +45,7 @@ export default {
           yAxes: [{
             gridLines: { color: "#9e9e9e" },
             ticks: {
-              beginAtZero: true,
-              color: "#9e9e9e"
+              beginAtZero: true
             },
           }],
           xAxes: [{
@@ -62,12 +59,11 @@ export default {
   },
   methods: {
     renderChart(label) { //renderizzo il grafico ogni volta che cambiano i dati, o l'utente seleziona un paramentro differente
-      Chart.defaults.global.defaultFontColor = '#fff'
+      Chart.defaults.global.defaultFontColor = '#9e9e9e'
       this.currentChart = label
       this.chartData = {
         labels: Object.keys(this.trafficData[label].history).map(date => date.slice(-2) + " Jan"), //i dati arrivano da trafficData
         datasets: [{
-          label,
           data: Object.values(this.trafficData[label].history),
           backgroundColor: "rgba(48, 163, 230, 0.8)",
           borderColor: "#30A3E6",
@@ -132,7 +128,7 @@ export default {
     font-family: 'Ubuntu', sans-serif;
     margin: 0;
     overflow-x: hidden;
-    background: #505050;
+    background: #404040;
     color: #fff;
     position: relative;
   }
@@ -141,7 +137,6 @@ export default {
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
-    background-color: #505050;
     margin: 20px 0;
   }
   .chartContainer {
@@ -174,6 +169,9 @@ export default {
     .credits {
       position: relative;
       padding: 15px 0;
+    }
+    .chartContainer {
+      width: 95%;
     }
   }
 </style>

@@ -70,8 +70,8 @@ export default {
   .ControllerButton {
     width: 200px;
     color: white;
-    background-color: #505050;
-    border: none;
+    background-color: transparent;
+    border: 2px solid transparent;
     padding: 15px;
     padding-left: 3%;
     text-align: left;
@@ -88,6 +88,7 @@ export default {
   }
   .selected {
     background-color: #30A3E6;
+    border: 2px solid #000;
     transition: all 0.2s;
   }
   .selected:hover {
