@@ -79,7 +79,7 @@ export default {
     },
     updateData() { //eseguo un aggiornamento dei dati costante, ogni 5s
       let i = this.randomNumber(0, 3)
-      let chart = Object.keys(this.trafficData)[i] //prendo uno dei 3 parametri a caso
+      let chart = Object.keys(this.trafficData)[3] //prendo uno dei 3 parametri a caso
       let sum = chart === "subscriptions" ? this.randomNumber(5, 15) :
                 chart === "impressions" ? this.randomNumber(70, 120) :
                 chart === "clicks" ? this.randomNumber(1, 7) :

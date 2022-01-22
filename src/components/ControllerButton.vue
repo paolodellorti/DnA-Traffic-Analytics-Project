@@ -38,10 +38,14 @@ export default {
     },
     showVariation(diff) { //mostro l'incremento del valore per 2.5 sec
       this.liveVariation = diff >= 0 ? "+" + diff : diff
-      this.$refs[this.name].style.opacity = 1
-      this.$refs[this.name + "button"].style.color = "#0f0"
+      let color = diff >= 0 ? "#0f0" : "#f00"
+      let liveDiff = this.$refs[this.name].style
+      liveDiff.opacity = 1
+      liveDiff.color = color
+      this.$refs[this.name + "button"].style.color = color
       setTimeout(() => {
-        this.$refs[this.name].style.opacity = 0
+        liveDiff.opacity = 0
+        liveDiff.color = "#0f0"
         this.$refs[this.name + "button"].style.color = "#fff"
       }, 2500)
     }
