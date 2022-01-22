@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>DnA Traffic Analytics</h1>
+    <h1>&#x1F4C8; DnA Traffic Analytics</h1>
     <div class="controllersContainer">
       <ControllerButton v-for="(value, name) in trafficData" 
                         :key="name" 
