@@ -5,7 +5,7 @@
       <ControllerButton v-for="(value, name) in trafficData" 
                         :key="name" 
                         :name="name" 
-                        :value="value"
+                        :value="totalValue(name, value)"
                         :class="{ selected: name === 'subscriptions' }"
                         @click.native="renderChart(name)" 
                         />
@@ -94,7 +94,19 @@ export default {
     },
     randomNumber(min, max) { 
       return Math.floor(Math.random() * (max - min + 1) + min)
-    }
+    },
+    totalValue(name, value) {
+      return name !== "avgTime" ? this.sumObj(value) :
+                                  this.avgObj(value)
+    },
+    sumObj(obj) { //ottengo somma dei valori dell'oggetto history
+      return Object.values(obj.history)
+                   .reduce((prev, curr) => prev + curr)
+    },
+    avgObj(obj) {
+      let sum = this.sumObj(obj) //ottengo la media dei valori dell'oggetto history di avgTime
+      return parseFloat((sum / Object.values(obj.history).length).toFixed(2))
+    },
   },
   mounted() { //appena montato il componente principale, eseguo la fetch e assegno i dati ottenuti all'oggetto trafficData
     axios

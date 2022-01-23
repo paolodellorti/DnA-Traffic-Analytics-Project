@@ -1,7 +1,7 @@
 <template>
   <button class="ControllerButton" @click="toggle" :ref="name">
       <h3> {{ name }} </h3>
-      <h1> {{ liveValue }} </h1>
+      <h1> {{ value }} </h1>
       &nbsp;
       <h2 class="variation"> {{ liveVariation }} </h2>
   </button>
@@ -15,7 +15,7 @@ export default {
       type: String
     },
     value: {
-      type: Object
+      type: Number
     }
   },
   data() {
@@ -28,14 +28,6 @@ export default {
       document.querySelectorAll(".ControllerButton").forEach(but => but.classList.remove('selected'))
       this.$refs[this.name].classList.add('selected')
     },
-    sumObj(obj) { //ottengo somma dei valori dell'oggetto history
-      return Object.values(obj.history)
-                   .reduce((prev, curr) => prev + curr)
-    },
-    avgObj(obj) {
-      let sum = this.sumObj(obj) //ottengo la media dei valori dell'oggetto history di avgTime
-      return (sum / Object.values(obj.history).length).toFixed(2)
-    },
     showVariation(diff) { //mostro l'incremento del valore per 2.5 sec
       this.liveVariation = diff >= 0 ? "+" + diff : diff
       let color = diff >= 0 ? "positiveVar" : "negativeVar"
@@ -45,14 +37,8 @@ export default {
       }, 2500)
     }
   },
-  computed: { //per ogni modifica dei dati ricalcolo la somma (o la media, nel caso di avgTime)
-    liveValue() {
-      return this.name !== "avgTime" ? this.sumObj(this.value) :
-                                       this.avgObj(this.value)
-    }
-  },
   watch: { //per ogni modifica dei dati calcolo la differenza col valore precedente e lo mostro
-    liveValue(newVal, oldVal) {
+    value(newVal, oldVal) {
       if (oldVal) {
         this.showVariation((newVal - oldVal).toFixed(2).replace(/[.,]00$/, ""))
       }
