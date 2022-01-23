@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-    renderChart(label) { //renderizzo il grafico ogni volta che cambiano i dati, o l'utente seleziona un paramentro differente
+    renderChart(label) { //renderizzo il grafico ogni volta che cambiano i dati, o l'utente seleziona un grafico differente
       Chart.defaults.global.defaultFontColor = '#9e9e9e'
       this.currentChart = label
       this.chartData = {
@@ -73,7 +73,7 @@ export default {
         }]
       }
     },
-    updateData() { //eseguo un aggiornamento dei dati costante, ogni 5s
+    updateData() { //eseguo un aggiornamento dei dati casuale e costante, ogni 5s
       let i = this.randomNumber(0, 3)
       let chart = Object.keys(this.trafficData)[i] //prendo uno dei 3 parametri a caso
       let sum = chart === "subscriptions" ? this.randomNumber(5, 15) :
@@ -128,7 +128,7 @@ export default {
     font-family: 'Ubuntu', sans-serif;
     margin: 0;
     overflow-x: hidden;
-    background: #404040;
+    background: #505050;
     color: #fff;
     position: relative;
   }
@@ -171,7 +171,7 @@ export default {
       padding: 15px 0;
     }
     .chartContainer {
-      width: 95%;
+      width: 98%;
     }
   }
 </style>

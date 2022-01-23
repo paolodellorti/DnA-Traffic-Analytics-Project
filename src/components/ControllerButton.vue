@@ -1,9 +1,9 @@
 <template>
-  <button class="ControllerButton" @click="toggle" :ref="name + 'button'">
+  <button class="ControllerButton" @click="toggle" :ref="name">
       <h3> {{ name }} </h3>
       <h1> {{ liveValue }} </h1>
       &nbsp;
-      <h2 class="variation" :ref="name"> {{ liveVariation }} </h2>
+      <h2 class="variation"> {{ liveVariation }} </h2>
   </button>
 </template>
 
@@ -26,7 +26,7 @@ export default {
   methods: {
     toggle() { //assegno la classe .selected al bottone cliccato
       document.querySelectorAll(".ControllerButton").forEach(but => but.classList.remove('selected'))
-      this.$refs[this.name + "button"].classList.add('selected')
+      this.$refs[this.name].classList.add('selected')
     },
     sumObj(obj) { //ottengo somma dei valori dell'oggetto history
       return Object.values(obj.history)
@@ -38,15 +38,10 @@ export default {
     },
     showVariation(diff) { //mostro l'incremento del valore per 2.5 sec
       this.liveVariation = diff >= 0 ? "+" + diff : diff
-      let color = diff >= 0 ? "#0f0" : "#f00"
-      let liveDiff = this.$refs[this.name].style
-      liveDiff.opacity = 1
-      liveDiff.color = color
-      this.$refs[this.name + "button"].style.color = color
+      let color = diff >= 0 ? "positiveVar" : "negativeVar"
+      this.$refs[this.name].classList.add(color)
       setTimeout(() => {
-        liveDiff.opacity = 0
-        liveDiff.color = "#0f0"
-        this.$refs[this.name + "button"].style.color = "#fff"
+        this.$refs[this.name].classList.remove(color)
       }, 2500)
     }
   },
@@ -68,10 +63,10 @@ export default {
 
 <style>
   .ControllerButton {
-    width: 200px;
+    width: 210px;
     color: white;
     background-color: transparent;
-    border: 2px solid transparent;
+    border: 5px solid transparent;
     padding: 15px;
     padding-left: 3%;
     text-align: left;
@@ -88,16 +83,32 @@ export default {
   }
   .selected {
     background-color: #30A3E6;
-    border: 2px solid #000;
+    border: 5px solid #000;
     transition: all 0.2s;
   }
   .selected:hover {
     background-color: #30A3E6;
   }
   .variation {
-    color: #0f0;
     opacity: 0;
+    color: #0f0;
     transition: all 0.2s;
+  }
+  .positiveVar {
+    color: #0f0;
+    transition: all 0.2s;
+  }
+  .negativeVar {
+    color: #f00;
+    transition: all 0.2s;
+  }
+  .negativeVar>h2 {
+    color: #f00;
+    transition: all 0.2s;
+  }
+  .positiveVar>h2,
+  .negativeVar>h2 {
+    opacity: 1;
   }
   h1, h2 {
     display: inline-block;
