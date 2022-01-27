@@ -50,7 +50,6 @@ export default {
 <style>
   .ControllerButton {
     width: 210px;
-    color: white;
     background-color: transparent;
     border: 5px solid transparent;
     padding: 15px;
@@ -61,27 +60,29 @@ export default {
     border-radius: 10px;
   }
   .ControllerButton:hover{
-    background-color: #454545;
+    background-color: #eee;
     transition: all 0.2s;
   }
   .ControllerButton:first-letter {
     text-transform: capitalize;
   }
   .selected {
-    background-color: #30A3E6;
-    border: 5px solid #000;
+    /* background-color: #30A3E6; */
+    border: 5px solid #30A3E6;
+    color: #30A3E6;
     transition: all 0.2s;
+    box-shadow: 0 10px 50px rgb(92 99 105 / 60%);
   }
   .selected:hover {
-    background-color: #30A3E6;
+    background-color: #fff;
   }
   .variation {
     opacity: 0;
-    color: #0f0;
+    color: #71d62d;
     transition: all 0.2s;
   }
   .positiveVar {
-    color: #0f0;
+    color: #58db00;
     transition: all 0.2s;
   }
   .negativeVar {

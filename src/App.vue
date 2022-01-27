@@ -65,7 +65,7 @@ export default {
         labels: Object.keys(this.trafficData[label].history).map(date => date.slice(-2) + " Jan"), //i dati arrivano da trafficData
         datasets: [{
           data: Object.values(this.trafficData[label].history),
-          backgroundColor: "rgba(48, 163, 230, 0.8)",
+          backgroundColor: "rgba(48, 163, 230, 0.7)",
           borderColor: "#30A3E6",
           pointBorderWidth: 10,
           pointHoverBorderWidth: 15,
@@ -75,21 +75,15 @@ export default {
     },
     updateData() { //eseguo un aggiornamento dei dati casuale e costante, ogni 5s
       let i = this.randomNumber(0, 3)
-      let chart = Object.keys(this.trafficData)[i] //prendo uno dei 3 parametri a caso
+      let chart = Object.keys(this.trafficData)[i] //prendo uno dei 4 parametri a caso
       let sum = chart === "subscriptions" ? this.randomNumber(5, 15) :
                 chart === "impressions" ? this.randomNumber(70, 120) :
                 chart === "clicks" ? this.randomNumber(1, 7) :
-                (Math.random() * 2 + 15).toFixed(2) //sommo un valore ipotetico e casuale, in un range differente per ogni parametro
-      if (chart === "avgTime") {
-        let difference = sum - this.trafficData[chart].total
-        this.trafficData[chart].history["2021-01-07"] = parseFloat(sum)
-        sum = difference.toFixed(2)
-      } else {
-        this.trafficData[chart].history["2021-01-07"] += sum
-      }
-      if (this.currentChart === chart) {
-        this.renderChart(chart) //se l'aggiornamento dati avviene sul grafico visualizzato, lo ri-renderizzo 
-      }                         //in modo da visualizzarlo in tempo reale sul grafico
+                Number((Math.random() * 2 - 1).toFixed(2)) //sommo un valore ipotetico e casuale, in un range differente per ogni parametro
+      this.trafficData[chart].history["2021-01-07"] += sum //poi lo aggiungo al dato di oggi.
+      if (this.currentChart === chart) {//Se l'aggiornamento dati avviene sul grafico visualizzato, lo ri-renderizzo
+        this.renderChart(chart)  //in modo da visualizzarlo in tempo reale sul grafico
+      }                         
       setTimeout(this.updateData, 5000)
     },
     randomNumber(min, max) { 
@@ -124,24 +118,11 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');  
   
-  * {
-      text-shadow:
-        -2px -2px 0 #000,
-        0   -2px 0 #000,
-        2px -2px 0 #000,
-        2px  0   0 #000,
-        2px  2px 0 #000,
-        0    2px 0 #000,
-        -2px  2px 0 #000,
-        -2px  0   0 #000;
-  }
   body {
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
     margin: 0;
     overflow-x: hidden;
-    background: #505050;
-    color: #fff;
     position: relative;
   }
   .controllersContainer {
@@ -164,16 +145,15 @@ export default {
   }
   .credits>a:link,
   .credits>a:visited {
+    color: black;
     text-decoration: none;
-    text-shadow: none;
-    color: #fff;
     transition: all 0.2s;
   }
   .credits>a:hover {
     color: #30A3E6;
     transition: all 0.2s;
   }
-  @media (max-width: 830px) {
+  @media (max-width: 840px) {
     .ControllerButton {
       flex: 0 35%;
       height: 200px;
