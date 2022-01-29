@@ -27,6 +27,7 @@ export default {
     toggle() { //assegno la classe .selected al bottone cliccato
       document.querySelectorAll(".ControllerButton").forEach(but => but.classList.remove('selected'))
       this.$refs[this.name].classList.add('selected')
+      this.$emit('changeChart', this.name)
     },
     showVariation(diff) { //mostro l'incremento del valore per 2.5 sec
       this.liveVariation = diff >= 0 ? "+" + diff : diff

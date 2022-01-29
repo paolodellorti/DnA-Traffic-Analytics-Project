@@ -7,7 +7,7 @@
                         :name="name" 
                         :value="totalValue(name, value)"
                         :class="{ selected: name === 'subscriptions' }"
-                        @click.native="renderChart(name)" 
+                        @changeChart="renderChart" 
                         />
     </div>
     <div class="chartContainer">
@@ -73,36 +73,36 @@ export default {
         }]
       }
     },
-    updateData() { //eseguo un aggiornamento dei dati casuale e costante, ogni 5s
+    updateData() { //eseguo un aggiornamento dei dati casuale e costante, ogni 3-8s
       let i = this.randomNumber(0, 3)
       let chart = Object.keys(this.trafficData)[i] //prendo uno dei 4 parametri a caso
-      let sum = chart === "subscriptions" ? this.randomNumber(5, 15) :
-                chart === "impressions" ? this.randomNumber(70, 120) :
-                chart === "clicks" ? this.randomNumber(1, 7) :
-                Number((Math.random() * 2 - 1).toFixed(2)) //sommo un valore ipotetico e casuale, in un range differente per ogni parametro
+      let sum = chart === "subscriptions" ? this.randomNumber(5, 15)
+              : chart === "impressions" ? this.randomNumber(70, 120)
+              : chart === "clicks" ? this.randomNumber(1, 7)
+              : Number((Math.random() * 2 - 1).toFixed(2)) //sommo un valore ipotetico e casuale, in un range differente per ogni parametro
       this.trafficData[chart].history["2021-01-07"] += sum //poi lo aggiungo al dato di oggi.
       if (this.currentChart === chart) {//Se l'aggiornamento dati avviene sul grafico visualizzato, lo ri-renderizzo
         this.renderChart(chart)  //in modo da visualizzarlo in tempo reale sul grafico
       }                         
-      setTimeout(this.updateData, 5000)
+      setTimeout(this.updateData, this.randomNumber(3, 8) * 1000)
     },
     randomNumber(min, max) { 
       return Math.floor(Math.random() * (max - min + 1) + min)
     },
-    totalValue(name, value) {
-      return name !== "avgTime" ? this.sumObj(value) :
-                                  this.avgObj(value)
+    totalValue(name, value) {//dopo averlo calcolato ritorno il totale del parametro scelto, da passare al button
+      return name !== "avgTime" ? this.sumObj(value)
+                                : this.avgObj(value)
     },
-    sumObj(obj) { //ottengo somma dei valori dell'oggetto history
+    sumObj(obj) { //ottengo somma dei valori del parametro scelto
       return Object.values(obj.history)
                    .reduce((prev, curr) => prev + curr)
     },
     avgObj(obj) {
-      let sum = this.sumObj(obj) //ottengo la media dei valori dell'oggetto history di avgTime
+      let sum = this.sumObj(obj) //ottengo la media dei valori di avgTime
       return parseFloat((sum / Object.values(obj.history).length).toFixed(2))
     },
   },
-  mounted() { //appena montato il componente principale, eseguo la fetch e assegno i dati ottenuti all'oggetto trafficData
+  mounted() { //appena montato il componente principale, eseguo la fetch e copio i dati ottenuti nell'oggetto trafficData
     axios
       .get('https://ott-fogliata.github.io/vuejs-s2i-repository/stats.json')
       .then(res => {
